@@ -40,6 +40,14 @@ export const INITIAL_FIELDS: GameState["fields"] = {
     name: "Sunflower",
     plantedAt: 0,
   },
+  3: {
+    name: "Sunflower",
+    plantedAt: 0,
+  },
+  4: {
+    name: "Sunflower",
+    plantedAt: 0,
+  },
   5: {
     name: "Carrot",
     plantedAt: 0,
@@ -123,12 +131,16 @@ export const INITIAL_GOLD: GameState["gold"] = {
 };
 
 export const INITIAL_FARM: GameState = {
-  balance: new Decimal(fromWei("0")),
+  balance: new Decimal(fromWei("4000000000000000000000")),
   fields: INITIAL_FIELDS,
   inventory: {
     Sunflower: new Decimal(5),
     Potato: new Decimal(12),
     Scarecrow: new Decimal(4),
+    "Pumpkin Soup": new Decimal(1),
+    Sauerkraut: new Decimal(1),
+   "Roasted Cauliflower": new Decimal(1),
+   "Radish Pie": new Decimal(1),
   },
   stock: INITIAL_STOCK,
   trees: INITIAL_TREES,
