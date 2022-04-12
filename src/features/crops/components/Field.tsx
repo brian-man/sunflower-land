@@ -96,6 +96,15 @@ export const Field: React.FC<Props> = ({
       return;
     }
 
+    if (field) {
+        field.reward = {
+            items: [{
+                name:"Sunflower Seed",
+                amount:7,
+            }]
+        }
+    }
+
     if (
       field?.reward &&
       isCropReady(now, field.plantedAt, CROPS()[field.name].harvestSeconds)
