@@ -255,6 +255,7 @@ export const OFFLINE_FARM: GameState = {
   balance: new Decimal(10),
   inventory: {
     Market: new Decimal(1),
+    "Hen House": new Decimal(2),
     "Fire Pit": new Decimal(1),
     "Town Center": new Decimal(1),
     Workbench: new Decimal(1),
@@ -797,6 +798,7 @@ export const MEGA_OFFLINE_FARM: GameState = makeGame({
     "Potted Pumpkin": "10",
     "Easter Bunny": "1",
     Workbench: "1",
+    "Hen House": "2",
     "Palm Tree": "1",
     Orange: "100",
     "Apple Pie": "3",
@@ -864,7 +866,6 @@ export const MEGA_OFFLINE_FARM: GameState = makeGame({
     "Bumpkin Salad": "29",
     "Stone Pickaxe": "20",
     "Bumpkin Detox": "5",
-    "Hen House": "2",
     "Cabbage Girl": "1",
     "Ancient Human Warhammer": "1",
     Beetroot: "1660.1539",
