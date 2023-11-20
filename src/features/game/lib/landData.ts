@@ -1,6 +1,9 @@
 import Decimal from "decimal.js-light";
 import { Bumpkin, GameState, Inventory } from "../types/game";
-import { getKeys } from "../types/craftables";
+import { LEVEL_EXPERIENCE } from "./level";
+import { getEnabledNodeCount } from "../expansion/lib/expansionNodes";
+import { getLandLimit } from "../expansion/lib/expansionRequirements";
+import { BumpkinLevel } from "features/game/lib/level";
 
 const INITIAL_STOCK: Inventory = {
   "Sunflower Seed": new Decimal(400),
@@ -55,6 +58,39 @@ export type ResourceFieldName =
   | "gold"
   | "crops"
   | "fruitPatches";
+
+const INITIAL_BUMPKIN_LEVEL = 1;
+
+// Special case level 1 for testing expansions.
+const INITIAL_EXPANSIONS =
+  INITIAL_BUMPKIN_LEVEL === 1
+    ? 3
+    : getLandLimit(INITIAL_BUMPKIN_LEVEL as BumpkinLevel);
+
+const OFFLINE_FARM_CROPS = getEnabledNodeCount(
+  INITIAL_BUMPKIN_LEVEL as BumpkinLevel,
+  "Crop Plot"
+);
+const OFFLINE_FARM_TREES = getEnabledNodeCount(
+  INITIAL_BUMPKIN_LEVEL as BumpkinLevel,
+  "Tree"
+);
+const OFFLINE_FARM_STONES = getEnabledNodeCount(
+  INITIAL_BUMPKIN_LEVEL as BumpkinLevel,
+  "Stone Rock"
+);
+const OFFLINE_FARM_IRON = getEnabledNodeCount(
+  INITIAL_BUMPKIN_LEVEL as BumpkinLevel,
+  "Iron Rock"
+);
+const OFFLINE_FARM_GOLD = getEnabledNodeCount(
+  INITIAL_BUMPKIN_LEVEL as BumpkinLevel,
+  "Gold Rock"
+);
+const OFFLINE_FARM_FRUIT = getEnabledNodeCount(
+  INITIAL_BUMPKIN_LEVEL as BumpkinLevel,
+  "Fruit Patch"
+);
 
 export const INITIAL_RESOURCES: Pick<
   GameState,
@@ -189,11 +225,9 @@ export const INITIAL_RESOURCES: Pick<
   iron: {},
 };
 
-export const INITIAL_EXPANSIONS = 3;
-
 const INITIAL_BUMPKIN: Bumpkin = {
   id: 1,
-  experience: 0,
+  experience: LEVEL_EXPERIENCE[INITIAL_BUMPKIN_LEVEL as BumpkinLevel],
   tokenUri: "bla",
   equipped: {
     body: "Beige Farmer Potion",
@@ -227,10 +261,13 @@ export const OFFLINE_FARM: GameState = {
     Market: new Decimal(1),
     Workbench: new Decimal(1),
     "Basic Land": new Decimal(INITIAL_EXPANSIONS),
-    "Crop Plot": new Decimal(getKeys(INITIAL_RESOURCES.crops).length),
+    "Crop Plot": new Decimal(OFFLINE_FARM_CROPS),
     "Water Well": new Decimal(4),
-    Tree: new Decimal(getKeys(INITIAL_RESOURCES.trees).length),
-    "Stone Rock": new Decimal(getKeys(INITIAL_RESOURCES.stones).length),
+    Tree: new Decimal(OFFLINE_FARM_TREES),
+    "Stone Rock": new Decimal(OFFLINE_FARM_STONES),
+    "Iron Rock": new Decimal(OFFLINE_FARM_IRON),
+    "Gold Rock": new Decimal(OFFLINE_FARM_GOLD),
+    "Fruit Patch": new Decimal(OFFLINE_FARM_FRUIT),
     Axe: new Decimal(10),
     "Block Buck": new Decimal(1),
     "Mashed Potato": new Decimal(1),
