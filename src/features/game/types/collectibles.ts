@@ -74,12 +74,13 @@ export type GoblinBlacksmithItemName =
   | "Mushroom House"
   | "Maximus";
 
+export type TurtleName = "Emerald Turtle" | "Tin Turtle";
+
 export type GoblinPirateItemName =
   | "Iron Idol"
   | "Heart of Davy Jones"
   | "Karkinos"
-  | "Emerald Turtle"
-  | "Tin Turtle"
+  | TurtleName
   | "Parasaur Skull"
   | "Golden Bear Head";
 

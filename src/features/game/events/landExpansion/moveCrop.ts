@@ -30,7 +30,7 @@ type Options = {
   createdAt?: number;
 };
 
-export function isLocked(
+export function isPlotLocked(
   plot: CropPlot,
   collectibles: Collectibles,
   createdAt: number
@@ -225,7 +225,7 @@ export function moveCrop({
     throw new Error(MOVE_CROP_ERRORS.CROP_NOT_PLACED);
   }
 
-  if (isLocked(plot, collectibles, createdAt)) {
+  if (isPlotLocked(plot, collectibles, createdAt)) {
     throw new Error(MOVE_CROP_ERRORS.AOE_LOCKED);
   }
 

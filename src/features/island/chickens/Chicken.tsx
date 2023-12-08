@@ -38,7 +38,7 @@ import { isCollectibleBuilt } from "features/game/lib/collectibleBuilt";
 import { MachineState as GameMachineState } from "features/game/lib/gameMachine";
 import { MoveableComponent } from "../collectibles/MovableComponent";
 import { ZoomContext } from "components/ZoomProvider";
-import { isLocked } from "features/game/events/landExpansion/moveChicken";
+import { isChickenLocked } from "features/game/events/landExpansion/moveChicken";
 import lockIcon from "assets/skills/lock.png";
 import { SquareIcon } from "components/ui/SquareIcon";
 import { gameAnalytics } from "lib/gameAnalytics";
@@ -544,7 +544,7 @@ const LandscapingChicken: React.FC<Props> = (props) => {
   const collectibles = useSelector(gameService, _collectibles);
   const chickens = useSelector(gameService, _chickens);
 
-  if (isLocked(chickens[props.id], collectibles, Date.now())) {
+  if (isChickenLocked(chickens[props.id], collectibles, Date.now())) {
     return <LockedChicken {...props} />;
   }
 

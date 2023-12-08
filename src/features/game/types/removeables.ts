@@ -16,6 +16,10 @@ import {
 import { isFruitGrowing } from "features/game/events/landExpansion/fruitHarvested";
 import { CompostName } from "./composters";
 import { getDailyFishingCount } from "./fishing";
+import { TurtleName } from "./collectibles";
+import { isStoneLocked } from "../events/landExpansion/moveStone";
+import { isIronLocked } from "../events/landExpansion/moveIron";
+import { isGoldLocked } from "../events/landExpansion/moveGold";
 
 type RESTRICTION_REASON =
   | "No restriction"
@@ -128,6 +132,16 @@ function areAnyTreesChopped(game: GameState): Restriction {
   return [treesChopped, "Trees are chopped"];
 }
 
+function areAnyStonesLocked(game: GameState, turtle: TurtleName): Restriction {
+  const turtles = game.collectibles[turtle] ?? [];
+  const stoneMined =
+    turtles &&
+    Object.values(game.stones ?? {}).some(
+      (stone) => !isStoneLocked(stone, turtles[0], Date.now())
+    );
+  return [stoneMined, "In use"];
+}
+
 function areAnyStonesMined(game: GameState): Restriction {
   const stoneMined = Object.values(game.stones ?? {}).some(
     (stone) => !canMine(stone)
@@ -147,6 +161,25 @@ function areAnyGoldsMined(game: GameState): Restriction {
     (gold) => !canMine(gold)
   );
   return [goldMined, "Gold is mined"];
+}
+
+function areAnyMineralsLocked(
+  game: GameState,
+  turtle: TurtleName
+): Restriction {
+  const turtles = game.collectibles[turtle] ?? [];
+  const stoneMined =
+    turtles &&
+    Object.values(game.stones ?? {}).some(
+      (stone) => !isStoneLocked(stone, turtles[0], Date.now())
+    );
+  const ironMined = Object.values(game.stones ?? {}).some(
+    (stone) => !isIronLocked(stone, turtles[0], Date.now())
+  );
+  const goldMined = Object.values(game.stones ?? {}).some(
+    (stone) => !isGoldLocked(stone, turtles[0], Date.now())
+  );
+  return [stoneMined || ironMined || goldMined, "In use"];
 }
 
 function areAnyMineralsMined(game: GameState): Restriction {
@@ -290,8 +323,8 @@ export const REMOVAL_RESTRICTIONS: Partial<
   "Rocky the Mole": (game) => areAnyIronsMined(game),
   "Iron Idol": (game) => areAnyIronsMined(game),
   Nugget: (game) => areAnyGoldsMined(game),
-  "Tin Turtle": (game) => areAnyStonesMined(game),
-  "Emerald Turtle": (game) => areAnyMineralsMined(game),
+  "Tin Turtle": (game) => areAnyStonesLocked(game, "Tin Turtle"),
+  "Emerald Turtle": (game) => areAnyMineralsLocked(game, "Emerald Turtle"),
 
   // Mutant Crops
   "Carrot Sword": (game) => beanIsPlanted(game),

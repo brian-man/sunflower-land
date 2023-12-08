@@ -16,7 +16,7 @@ export enum MOVE_CHICKEN_ERRORS {
   AOE_LOCKED = "This chicken is within the AOE and fed!",
 }
 
-export function isLocked(
+export function isChickenLocked(
   chicken: Chicken,
   collectibles: Collectibles,
   createdAt: number
@@ -85,7 +85,7 @@ export function moveChicken({
     throw new Error(MOVE_CHICKEN_ERRORS.CHICKEN_NOT_PLACED);
   }
 
-  if (isLocked(chickens[action.id], collectibles, createdAt)) {
+  if (isChickenLocked(chickens[action.id], collectibles, createdAt)) {
     throw new Error(MOVE_CHICKEN_ERRORS.AOE_LOCKED);
   }
 

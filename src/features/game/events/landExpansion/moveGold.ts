@@ -23,7 +23,7 @@ type Options = {
   createdAt?: number;
 };
 
-export function isLocked(
+export function isGoldLocked(
   rock: Rock,
   collectibles: Collectibles,
   createdAt: number
@@ -53,7 +53,7 @@ export function moveGold({
     throw new Error(MOVE_GOLD_ERRORS.GOLD_NOT_PLACED);
   }
 
-  if (isLocked(gold[action.id], stateCopy.collectibles, createdAt)) {
+  if (isGoldLocked(gold[action.id], stateCopy.collectibles, createdAt)) {
     throw new Error(MOVE_GOLD_ERRORS.AOE_LOCKED);
   }
 
