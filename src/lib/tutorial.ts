@@ -9,7 +9,6 @@ type TutorialName =
   | "Bumpkin"
   | "Grub Shop"
   | "Treasure Detector"
-  | "Pirate Quest"
   | "Garbage Collector"
   | "Chore Master";
 

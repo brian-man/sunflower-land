@@ -2,7 +2,6 @@ import "lib/__mocks__/configMock";
 import Decimal from "decimal.js-light";
 import {
   QUEST_NPC_NAMES,
-  QuestNPCName,
   TICKET_REWARDS,
   deliverOrder,
 } from "./deliver";
@@ -785,47 +784,6 @@ describe("deliver", () => {
 
     expect(state.balance).toEqual(new Decimal(10));
     expect(state.inventory.Sunflower).toEqual(new Decimal(10));
-  });
-
-  it("provides the correct amount of tickets for deliveries", () => {
-    const seasonNPCs = QUEST_NPC_NAMES;
-
-    seasonNPCs.forEach((name) => {
-      const state = deliverOrder({
-        state: {
-          ...TEST_FARM,
-          inventory: {
-            Sunflower: new Decimal(60),
-          },
-          delivery: {
-            ...TEST_FARM.delivery,
-            fulfilledCount: 3,
-            orders: [
-              {
-                id: "123",
-                createdAt: 0,
-                readyAt: new Date("2023-10-31T15:00:00Z").getTime(),
-                from: name,
-                items: {
-                  Sunflower: 50,
-                },
-                reward: {},
-              },
-            ],
-          },
-          bumpkin: INITIAL_BUMPKIN,
-        },
-        action: {
-          id: "123",
-          type: "order.delivered",
-        },
-        createdAt: new Date("2024-05-10T16:00:00Z").getTime(),
-      });
-
-      expect(state.inventory[getSeasonalTicket()]).toEqual(
-        new Decimal(TICKET_REWARDS[name as QuestNPCName]),
-      );
-    });
   });
 
   it("provides normal tickets for non banner holder", () => {

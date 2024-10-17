@@ -66,7 +66,6 @@ class GameAnalyticTracker {
         "Exchange",
         "IAP",
         "Web3",
-        "Quest",
         "Delivery",
       ]);
 
@@ -97,7 +96,7 @@ class GameAnalyticTracker {
   public trackSource(event: {
     item: Currency;
     amount: number;
-    type: "Exchange" | "Reward" | "IAP" | "Web3" | "Quest";
+    type: "Exchange" | "Reward" | "IAP" | "Web3";
     from:
       | "Delivery"
       | "Daily Reward"

@@ -779,12 +779,8 @@ type QuestNPCName =
   | "tywin"
   | "cornwell";
 
-export type Quest = Order & {
-  from: QuestNPCName;
-};
-
 export type Delivery = {
-  orders: (Order | Quest)[];
+  orders: Order[];
   fulfilledCount: number;
   skippedCount?: number;
   skippedAt?: number;
