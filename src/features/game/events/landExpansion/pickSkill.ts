@@ -35,33 +35,3 @@ export const getAvailableBumpkinOldSkillPoints = (bumpkin?: Bumpkin) => {
 
   return totalSkillPoints - allocatedSkillPoints;
 };
-
-export function pickSkill({ state, action, createdAt = Date.now() }: Options) {
-  return produce(state, (stateCopy) => {
-    const { bumpkin } = stateCopy;
-    if (bumpkin == undefined) {
-      throw new Error("You do not have a Bumpkin!");
-    }
-
-    const availableSkillPoints = getAvailableBumpkinOldSkillPoints(bumpkin);
-
-    const requirements = BUMPKIN_SKILL_TREE[action.skill].requirements;
-
-    if (availableSkillPoints < requirements.points) {
-      throw new Error("You do not have enough skill points");
-    }
-
-    if (requirements.skill && !bumpkin.skills[requirements.skill]) {
-      throw new Error("Missing previous skill requirement");
-    }
-    const bumpkinHasSkill = bumpkin.skills[action.skill];
-
-    if (bumpkinHasSkill) {
-      throw new Error("You already have this skill");
-    }
-
-    bumpkin.skills = { ...bumpkin.skills, [action.skill]: 1 };
-
-    return stateCopy;
-  });
-}

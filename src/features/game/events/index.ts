@@ -49,7 +49,6 @@ import {
 } from "./landExpansion/collectRecipe";
 import { feedBumpkin, FeedBumpkinAction } from "./landExpansion/feedBumpkin";
 import { detectBot, DetectBotAction } from "./detectBot";
-import { pickSkill, PickSkillAction } from "./landExpansion/pickSkill";
 import { choseSkill, ChoseSkillAction } from "./landExpansion/choseSkill";
 import { resetSkills, ResetSkillsAction } from "./landExpansion/resetSkills";
 import { seedBought, SeedBoughtAction } from "./landExpansion/seedBought";
@@ -716,7 +715,6 @@ export const PLAYING_EVENTS: Handlers<PlayingEvent> = {
   "recipe.cooked": cook,
   "recipes.collected": collectRecipe,
   "bumpkin.feed": feedBumpkin,
-  "skill.picked": pickSkill,
   "skill.chosen": choseSkill,
   "skills.reset": resetSkills,
   "seed.bought": seedBought,
